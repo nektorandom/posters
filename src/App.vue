@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <SearchBlock msg="Search"/>
+    <SearchBlock/>
   </div>
 </template>
 
