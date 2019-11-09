@@ -67,8 +67,25 @@ export default {
             )
                 .then(resp => resp.json())
                 .then(result => {
-                    this.setPosters(result.Search);
-                    this.setMsg('');
+                    if (result.Response === 'True') {
+                        let posters = result.Search.map(movie => {
+                            return {
+                                Title: movie.Title,
+                                Year: movie.Year,
+                                imdbID: movie.imdbID,
+                                Type: movie.Type,
+                                Poster: movie.Poster === 'N/A' ? `https://via.placeholder.com/300x468?text=${encodeURIComponent(movie.Title)}` : movie.Poster,
+                            }
+                        });
+                        this.setPosters(posters);
+                        this.setMsg(`Now showing the first ${result.Search.length} result of ${result.totalResults}`);
+                    } else {
+                        if (result.Error === 'Movie not found!') {
+                            this.setMsg('Sorry, we couldn\'t find that one. Please try again.');
+                        } else {
+                            this.setMsg(result.Error);
+                        }
+                    }
                 })
                 .catch(() => {
                     this.setMsg('Something went wrong. Please try again later.');
