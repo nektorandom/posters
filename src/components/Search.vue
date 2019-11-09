@@ -1,6 +1,5 @@
 <template>
-  <div class="hello">
-
+  <div class="">
     <section class='poster-search'>
       <header class='header'>
         <h1>{{ title }}</h1>
@@ -30,7 +29,6 @@
         <img v-for="movie in posters" :key="movie.Title" :src="movie.Poster" :alt="movie.Title">
       </section>
     </section>
-
   </div>
 </template>
 
@@ -80,93 +78,6 @@ export default {
 }
 </script>
 
-<style scoped>
-  body {
-    font-size: 16px;
-  }
-
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-
-input {
-  font-size: 18px;
-  line-height: 40px;
-  height: 40px;
-  width: 400px;
-}
-
-.rd-btn {
-  cursor: pointer;
-  position: relative;
-  display: inline-block;
-  text-align: center;
-  text-decoration: none;
-  vertical-align: bottom;
-  white-space: nowrap;
-  color: #fff;
-  background: #42b983;
-  border: none;
-  box-sizing: border-box;
-  line-height: 40px;
-  height: 40px;
-  padding: 0 32px;
-  overflow: hidden;
-  opacity: 1;
-  transition: background-color .3s, opacity .3s;
-  font-size: 16px;
-
-  text-rendering: auto;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-}
-
-  .rd-btn:hover {
-     background: #45c28a;
-   }
-
-  .rd-btn:disabled {
-    background: #b4b4b4;
-  }
-
-  .btn-search {
-    margin-left: 10px;
-  }
-
-  .poster-search {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .poster-grid {
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-  }
-
-  .poster-grid  img {
-    width: 24%;
-    object-fit: cover;
-    margin-bottom: 10px;
-    margin-right: 16px;
-  }
-
-  .poster-grid  img:nth-of-type(4n) {
-    margin-right: 0;
-  }
+<style lang="scss">
+  @import '@/assets/scss/templates/search.scss';
 </style>
