@@ -42,10 +42,27 @@ describe('Poster Search', () => {
     await expect(page).toFill('#movie-name', 'star');
     await expect(page).toClick('#search-button')
   });
-  xit('tells me when there are no results', () => {})
-  xit('handles api errors', () => {})
-  xit('handles network errors', () => {})
-  xit('tells me how many results were found and how many are being displayed', () => {})
+  xit('tells me when there are no results', () => {
+
+  });
+  xit('handles api errors', () => {});
+  it('handles network errors', async done => {
+    expect.assertions(3);
+
+    await page.setRequestInterception(true);
+    page.on('request', async req => {
+      if (req.url.includes('omdbapi.com')) {
+        await req.abort('failed');
+        const msg = await page.$('#msg');
+        await expect(msg).toMatch('Something went wrong. Please try again later.');
+        await page.setRequestInterception(false);
+        done()
+      }
+    });
+    await expect(page).toFill('#movie-name', 'star');
+    await expect(page).toClick('#search-button')
+  });
+  xit('tells me how many results were found and how many are being displayed', () => {});
   it('displays all results', async done => {
     expect.assertions(12);
 

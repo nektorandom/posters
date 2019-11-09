@@ -70,8 +70,8 @@ export default {
                     this.setPosters(result.Search);
                     this.setMsg('');
                 })
-                .catch(error => {
-                    throw error
+                .catch(() => {
+                    this.setMsg('Something went wrong. Please try again later.');
                 })
         }
     },
