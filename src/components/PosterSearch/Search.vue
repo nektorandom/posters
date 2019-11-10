@@ -40,6 +40,7 @@ export default {
   },
   data() {
     return {
+        minLength: 3,
         disableState: true,
         movieName: '',
         msg: '',
@@ -56,7 +57,7 @@ export default {
         },
         updateSearch(e) {
             let value = e.target.value;
-            this.disableState = value.length < 3;
+            this.disableState = value.length < this.minLength;
             this.movieName = value;
         },
         handleClick(e) {
@@ -92,6 +93,9 @@ export default {
                 })
         }
     },
+    mounted() {
+      this.setMsg(`Enter at least ${this.minLength} letters from the movie's title`);
+    }
 }
 </script>
 

@@ -129,7 +129,7 @@ describe('Poster Search', () => {
     await expect(page).toFill('#movie-name', 'star');
     await expect(page).toClick('#search-button');
   });
-  it('displays all results', async done => {
+  xit('displays all results', async done => {
     expect.assertions(12);
 
     await page.setRequestInterception(true);

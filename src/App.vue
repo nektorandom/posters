@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import SearchBlock from './components/Search.vue'
+import SearchBlock from './components/PosterSearch/Search.vue'
 
 export default {
   name: 'app',
