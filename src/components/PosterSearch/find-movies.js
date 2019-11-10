@@ -1,4 +1,14 @@
-// findMovies    :: movieTitle -> movies[]
+import axios from 'axios'
+
+export default function findMovies({movieTitle}) {
+  const query = buildMovieQuery({ movieTitle })
+  return axios(query)
+    .then(response => normalizeMovieResults(response.data))
+    .catch(e => {
+      console.log(e)
+      throw new Error('Something went wrong. See log for details.')
+    })
+}
 
 export function buildMovieQuery({movieTitle}) {
   return {
@@ -27,7 +37,7 @@ export function normalizeMovieResults(results) {
 
   return {
     total: results.totalResults,
-    movies: result.Search.map(movie => ({
+    movies: results.Search.map(movie => ({
       title: movie.Title,
       year: movie.Year,
       id: movie.imdbID,

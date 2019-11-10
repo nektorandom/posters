@@ -7,9 +7,9 @@ import dotenv from 'dotenv'
 dotenv.config();
 describe('Poster Search', () => {
   beforeAll(async () => {
-    browser.on('disconnected', () => {
-      browser.close()
-    })
+    await browser.on('disconnected', async () => {
+         // await browser.close() errors
+    });
   });
   beforeEach(async () => {
     await jestPuppeteer.resetPage();
@@ -64,7 +64,7 @@ describe('Poster Search', () => {
     });
     await expect(page).toFill('#movie-name', 'JsdfSKDJFJFEWldDFGJ');
     await expect(page).toClick('#search-button')
-  });
+  })
   it('handles api errors', async done => {
     await page.setRequestInterception(true);
 
@@ -76,7 +76,7 @@ describe('Poster Search', () => {
           contentType: 'application/json'
         })
       }
-    });
+    })
     page.on('response', async res => {
       if (res.url().includes('omdbapi.com')) {
         const msg = await page.$('#msg');
@@ -84,10 +84,10 @@ describe('Poster Search', () => {
         await page.setRequestInterception(false);
         done()
       }
-    });
+    })
     await expect(page).toFill('#movie-name', 'the');
     await expect(page).toClick('#search-button')
-  });
+  })
   it('handles network errors', async done => {
     expect.assertions(3);
 
@@ -101,9 +101,9 @@ describe('Poster Search', () => {
         done()
       }
     });
-    await expect(page).toFill('#movie-name', 'star');
+    await expect(page).toFill('#movie-name', 'star')
     await expect(page).toClick('#search-button')
-  });
+  })
   it('tells me how many results were found and how many are being displayed', async done => {
     expect.assertions(3);
 
@@ -128,8 +128,8 @@ describe('Poster Search', () => {
     });
     await expect(page).toFill('#movie-name', 'star');
     await expect(page).toClick('#search-button');
-  });
-  xit('displays all results', async done => {
+  })
+  it('displays all results', async done => {
     expect.assertions(12);
 
     await page.setRequestInterception(true);
@@ -141,23 +141,23 @@ describe('Poster Search', () => {
           contentType: 'application/json'
         })
       }
-    });
+    })
     page.on('response', async res => {
       if (res.url().includes('omdbapi.com')) {
         const result = dummyPosters;
         await Promise.all(
           result.Search.map(movie => {
-            expect(page).toMatchElement(`img[scr="${movie.Poster}"]`);
+            expect(page).toMatchElement(`img[scr="${movie.Poster}"]`)
           })
         ).then(async () => {
           await page.setRequestInterception(false);
           done()
         })
       }
-    });
+    })
     await expect(page).toFill('#movie-name', 'star');
     await expect(page).toClick('#search-button');
-  });
+  })
   xit('displays a placeholder when no poster is available', async done => {
     expect.assertions(12);
 
@@ -188,8 +188,8 @@ describe('Poster Search', () => {
           done()
         })
       }
-    });
-    await expect(page).toFill('#movie-name', 'star');
+    })
+    await expect(page).toFill('#movie-name', 'star')
     await expect(page).toClick('#search-button')
   })
-});
+})
